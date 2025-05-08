@@ -93,7 +93,6 @@ input[type=text] {
     margin: 0.2vw;
     margin-right: 1vw;
     border-radius: 5px;
-    background-color: azure;
 }
 
 .update {
@@ -143,7 +142,55 @@ li {
   }
   
   .filters-btn.active {
-    /* background-color: #007bff; */
+    background-color: #007bff;
     color: white;
     border-color: #007bff;
+  }
+
+  @media  (max-width:768px) {
+    .content {
+        height: 80vh;
+        width: 80vw;
+        margin-left: 10vw;
+    }
+    input[type=text] {
+        width: 58vw;
+        height: 7vh;
+    }
+    .ADD  {
+        width: 14vw;
+        height: 8vh;
+    }
+    .list {
+        width: 72vw;
+    }
+    /* .filters {  
+        display: flex;
+        gap: 5vw;   
+    } */
+    /* .buttons {
+        display: flex;
+        flex-direction: row; 
+        gap: 1vw;
+    } */
+    .del {
+        width: 4vw;
+       
+    }
+  }
+
+  @media  (max-width:485px){
+    .content {
+        height: 74vh;
+        width: 80vw;
+        margin-left: 10vw;
+    }
+    .list {
+        width: 73vw;
+        height: 6vh;
+        margin-top: 3vw;
+    }
+    .del {    
+        margin-right: 2vw;
+    }
   }
