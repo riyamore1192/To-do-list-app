@@ -1,0 +1,13 @@
+
+/*  {
+    /* background-color:crimson; 
+} */
+* {
+    margin: 0;
+    padding: 0;
+
+}
+.display {
+    padding: 5vw;
+    background-color: rgb(202, 223, 231);
+}
