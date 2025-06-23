@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { logOut_todo } from '../Redux/action.js';
+import "./Navbar.css"
 
 const Navbar = () => {
   const token = localStorage.getItem('token');
@@ -15,25 +16,37 @@ const Navbar = () => {
   };
 
   return (
-    <nav style={{ padding: '10px', background: '#f0f0f0', marginBottom: '20px' }}>
-      <Link to="/" style={{ marginRight: '10px' }}>Home</Link>
-
+    <nav>
       {!token && (
         <>
-          <Link to="/register" style={{ marginRight: '10px' }}>Register</Link>
-          <Link to="/login" style={{ marginRight: '10px' }}>Login</Link>
+          <NavLink className={({ isActive }) => isActive ? 'link-todo active' : 'link-todo'}
+            to="/register">Register</NavLink>
+          <NavLink
+            className={({ isActive }) => isActive ? 'link-todo active' : 'link-todo'}
+            to="/login" >Login</NavLink>
+          <NavLink className={({ isActive }) => isActive ? 'link-todo active' : 'link-todo'}
+            to="/todos" >Todo</NavLink>
+          <NavLink
+            className={({ isActive }) => isActive ? 'link-todo active' : 'link-todo'}
+            to="/displaydata" >My Todos</NavLink>
+
+          <button className='todo-btn' onClick={handleLogout} >Logout</button>
         </>
+
       )}
 
       {token && (
         <>
-          <Link to="/todos" style={{ marginRight: '10px' }}>Todo</Link>
-          <Link to="/displaydata" style={{ marginRight: '10px' }}>My Todos</Link>
-          <button onClick={handleLogout} style={{ cursor: 'pointer' }}>Logout</button>
+          <NavLink className={({ isActive }) => isActive ? 'link-todo active' : 'link-todo'}
+            to="/todos" >Todo</NavLink>
+          <NavLink className={({ isActive }) => isActive ? 'link-todo active' : 'link-todo'}
+            to="/displaydata" >My Todos</NavLink>
+          <button className='todo-btn' onClick={handleLogout} >Logout</button>
         </>
       )}
     </nav>
   );
 };
+{/* <Link to="/" style={{ marginRight: '10px' }}>Home</Link> */ }
 
 export default Navbar;

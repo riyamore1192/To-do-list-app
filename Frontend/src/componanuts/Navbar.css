@@ -1,16 +1,78 @@
-nav{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 2vw;
-    
-    font-size: 2vw; 
-    font-family:'Times New Roman', Times, serif ;
-   background-color: antiquewhite;
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  gap: 2vw;
+  padding: 1vw;
+  
 }
 
-li {
- list-style-type: none;
- text-decoration: none;
- color: coral;
+.todo-btn {
+  width: 10vw;
+  height: 4vw;
+  background-color: antiquewhite;
+  color: black;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 2.5vw;
+  font-family: 'Times New Roman', Times, serif;
+  /* margin-top: 2vw; */
+}
+
+.link-todo {
+  text-decoration: none;
+  font-size: 2vw;
+  font-weight: 700;
+  font-family: 'Times New Roman', Times, serif;
+  color: black;
+  padding: 0vw 1vw;
+  z-index: 0;
+  position: relative;
+  transition: all ease 0.3s;
+  overflow: hidden;
+}
+
+.link-todo:hover {
+  background-color: transparent;
+  border-radius: 30px;
+  color: white;
+}
+
+.link-todo.active {
+  background-color: darkslateblue;
+    border-radius: 30px;
+  color: white;
+}
+
+.link-todo::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  color: white;
+  background-color:darkslateblue;
+  z-index: -1;
+  left: 0;
+  bottom: -100%;
+  border-radius: 50%;
+  transition: all ease 0.3s;
+}
+
+.link-todo:hover::after {
+  bottom: 0;
+  border-radius: 0;
+}
+
+@media screen and (max-width:678px) {
+  .link-todo {
+    font-size: 4vw;
+    padding: 1vw 2vw;
+  }
+
+  .todo-btn {
+    width: 19vw;
+    height: 7vw;
+    font-size: 4vw;
+  }
 }

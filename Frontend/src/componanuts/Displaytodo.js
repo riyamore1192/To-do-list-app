@@ -1,61 +1,46 @@
+
+
 import React, { useEffect, useState } from 'react';
-// import Table from 'react-bootstrap/Table.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Displaytodo.css";
-// import { text } from 'express';
 
-const Displaytodo = ({  fetchTodos }) => {
-
+const Displaytodo = () => {
   const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-
-      const token = localStorage.getItem("token");
-      fetch("http://localhost:5000/api/todo", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-
+  const fetchTodos = () => {
+    const token = localStorage.getItem("token");
+    fetch("http://localhost:5000/api/todo", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched todos:", data);
+        setTodos(data);
       })
-          .then((res) => res.json())
-          .then((data) => {
-              console.log("Fetched todos:", data);
-              setTodos(data);
-          })
-          .catch((err) => console.error("Error fetching todos:", err));
+      .catch((err) => console.error("Error fetching todos:", err));
+  };
+
+  useEffect(() => {
+    fetchTodos();
   }, []);
 
-  //     useEffect(() => {
-  //     const fetchTodos = async () => {
-  //       try {
-  //         const res = await fetch("http://localhost:5000/api/todo");
-  //         const data = await res.json();
-  //         console.log("Fetched todos:", data);
-  //         setTodos(data);
-  //       } catch (err) {
-  //         console.error("Error fetching todos:", err);
-  //       }
-  //     };
-
-  //     fetchTodos(); // run once on mount
-  //   }, []);
-
   const deleteTodo = async (id) => {
-    const token = localStorage.getItem("token"); // 🔐 get token
+    const token = localStorage.getItem("token");
 
     try {
       const res = await fetch(`http://localhost:5000/api/todo/${id}`, {
         method: "DELETE",
         headers: {
-        "Authorization": `Bearer ${token}` // ✅ add token
-      }
+          "Authorization": `Bearer ${token}`
+        }
       });
-      //   console.log("Deleting ID:", id); // should log a number like 3, 4, etc.
 
       if (res.ok) {
         console.log(`Deleted todo with ID ${id}`);
-        fetchTodos(); // Refresh list
+        fetchTodos(); // ✅ Refresh the list correctly
       } else {
         console.error("Failed to delete todo");
       }
@@ -65,25 +50,24 @@ const Displaytodo = ({  fetchTodos }) => {
   };
 
   const updateTodo = (id, currentTask) => {
-      const token = localStorage.getItem("token"); // 🔐 get token
-    const newTask = prompt("Add ur new task : ", currentTask)
+    const token = localStorage.getItem("token");
+    const newTask = prompt("Add your new task:", currentTask);
 
     if (newTask) {
       fetch(`http://localhost:5000/api/todo/${id}`, {
         method: 'PUT',
         headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // ✅ add token
-      },
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ text: newTask })
       })
         .then(res => res.text())
         .then(() => {
-          // Refresh or re-fetch the todo list
-          fetchTodos();
-        })
+          fetchTodos(); // ✅ Refresh list after update
+        });
     }
-  }
+  };
 
   return (
     <div className='ALL'>
@@ -94,7 +78,6 @@ const Displaytodo = ({  fetchTodos }) => {
             <tr>
               <th>Id</th>
               <th>Todo-name</th>
-              {/* <th>isCompleted</th> */}
               <th>Delete</th>
               <th>Update</th>
             </tr>
@@ -102,15 +85,11 @@ const Displaytodo = ({  fetchTodos }) => {
           <tbody>
             {!Array.isArray(todos) ? (
               <tr>
-                <td colSpan="4" style={{ textAlign: "center" }}>
-                  Loading or invalid data...
-                </td>
+                <td colSpan="4" style={{ textAlign: "center" }}>Loading or invalid data...</td>
               </tr>
             ) : todos.length === 0 ? (
               <tr>
-                <td colSpan="4" style={{ textAlign: "center" }}>
-                  No TODOs found.
-                </td>
+                <td colSpan="4" style={{ textAlign: "center" }}>No TODOs found.</td>
               </tr>
             ) : (
               todos.map((todo) => (
@@ -118,47 +97,19 @@ const Displaytodo = ({  fetchTodos }) => {
                   <td>{todo.id}</td>
                   <td>{todo.text}</td>
                   <td>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => deleteTodo(todo.id)}
-                    >
-                      Delete
-                    </button>
+                    <button className="btn btn-danger btn-sm" onClick={() => deleteTodo(todo.id)}>Delete</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => updateTodo(todo.id, todo.text)}
-                    >
-                      Update
-                    </button>
+                    <button className="btn btn-warning btn-sm" onClick={() => updateTodo(todo.id, todo.text)}>Update</button>
                   </td>
                 </tr>
               ))
             )}
           </tbody>
-
         </table>
       </div>
     </div>
-  )
-}
-// {/* <tbody>
-//             {todos.length > 0 ? (
-//               todos.map((todo) => (
-//                 <tr key={todo.id}>
-//                   <td>{todo.id}</td>
-//                   <td>{todo.text}</td>
-//                   {/* <td>{todo.isCompleted ? "✅ Completed" : "❌ Not Completed"}</td> */}
-//                   <td><button className="btn btn-danger btn-sm" onClick={() => deleteTodo(todo.id)}>Delete</button></td>
-//                   <td><button className="btn btn-danger btn-sm" onClick={() => updateTodo(todo.id, todo.text)}>Update</button></td>
-//                 </tr>
-//               ))
-//             ) : (
-//               <tr>
-//                 <td colSpan="3" style={{ textAlign: "center" }}>No TODOs found.</td>
-//               </tr>
-//             // )}
-//           </tbody> */}
+  );
+};
 
-export default Displaytodo
+export default Displaytodo;

@@ -14,8 +14,8 @@ const Login = () => {
         if (token) navigate('/todos');
     }, []);
 
-    const handleLogin = async (e) => {
-            e.preventDefault();
+    const handleLogin = async () => {
+        // e.preventDefault();
         try {
             const response = await fetch("http://localhost:5000/api/auth/login", {
                 method: "POST",
@@ -41,24 +41,32 @@ const Login = () => {
     };
 
     return (
-        <form className='FORM' onSubmit={handleLogin}>
+        <div className="main" onSubmit={handleLogin}>
             <h2>Login</h2>
-            <div className=''>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    required
-                />
-                <button type="submit">Login</button>
+            <hr/>
+            <div className='Content'>
+                <div className='INPUT'>
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                    />
+                </div>
+                <div className='INPUT'>
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                        required
+                    />
+                </div>
+                <button className='login-btn' onClick={() => handleLogin()} type="submit">Login</button>
             </div>
-        </form>
+        </div>
+
     )
 }
 

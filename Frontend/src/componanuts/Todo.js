@@ -11,10 +11,10 @@ import { useDispatch, useSelector } from "react-redux";
 function Todo({ fetchTodos }) {
 
     useEffect(() => {
-     
-   
+
+
     }, [])
- 
+
     const [data, setData] = useState("") // foe add function
 
     const [filter, setFilter] = useState("ALL"); // ALL, ACTIVE, COMPLETED
@@ -31,17 +31,17 @@ function Todo({ fetchTodos }) {
         if (!data.trim()) return; // Prevent adding empty items
 
         const token = localStorage.getItem("token"); // or however you're storing it
-    if (!token) {
-        console.error("No token found — user may not be authenticated");
-        return;
-    }
+        if (!token) {
+            console.error("No token found — user may not be authenticated");
+            return;
+        }
 
         try {
             const response = await fetch("http://localhost:5000/api/todo", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                     "Authorization": `Bearer ${token}` // 🔐 Send the token here
+                    "Authorization": `Bearer ${token}` // 🔐 Send the token here
                 },
                 //  credentials: "include", // <--- important
                 body: JSON.stringify({ text: data }) // adjust depending on your backend schema
@@ -90,12 +90,13 @@ function Todo({ fetchTodos }) {
 
 
     return (
-        <div className="container">
-            <h1>TO DO LIST APPLICATION</h1>
+        <div className="page">
+            <h1 className="H1">TO DO LIST APPLICATION</h1>
             <div className="content">
-                <input type="text" name="task" value={data} onChange={(e) => setData(e.target.value)} />
-                <button className="ADD" onClick={() => addData()}>ADD</button>
-
+                <div>
+                    <input type="text" name="task" value={data} onChange={(e) => setData(e.target.value)} />
+                    <button className="ADD" onClick={() => addData()}>ADD</button>
+                </div>
                 {/* Filter Buttons */}
                 <div className="filters">
                     <button onClick={() => setFilter("ALL")}
