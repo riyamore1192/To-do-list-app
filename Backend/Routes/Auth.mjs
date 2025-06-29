@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 
 // import mysql from 'mysql2';
 import express from 'express';
@@ -8,7 +10,7 @@ import db from '../db.mjs';
 
 const router = express.Router();
 
-const JWT_SECRET = "MoreRiya";
+const JWT_SECRET = process.env.JWT_SECRET;
 console.log("✅ Auth routes file loaded"); 
 // Ragiser Routes
 

@@ -1,8 +1,11 @@
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from "express";
 const app = express();
 import cors from "cors";
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 import db from "./db.mjs";
 import verifytoken from "./Routes/Middleware/VerifyToken.mjs";
 import cookieParser from 'cookie-parser';

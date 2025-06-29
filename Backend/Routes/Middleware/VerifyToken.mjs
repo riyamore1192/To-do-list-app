@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
 
 import jwt from 'jsonwebtoken';
-const JWT_SECRET = "MoreRiya";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // const verifytoken = (req,res,next) => { 
 //     const authHeader = req.headers['authorization'];

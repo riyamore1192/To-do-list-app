@@ -25,6 +25,7 @@ function Todo({ fetchTodos }) {
     const token = localStorage.getItem("token"); // or wherever you store it
     console.log("Token being sent:", token);
 
+    const API_URL = process.env.REACT_APP_API_URL;
 
     // updated add to do fuction
     async function addData() {
@@ -37,7 +38,7 @@ function Todo({ fetchTodos }) {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/todo", {
+            const response = await fetch(`${API_URL}/api/todo`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
