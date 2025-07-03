@@ -8,7 +8,7 @@ const Register = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) navigate('/todos');
-    }, []);
+    }, [navigate]);
 
     const handleRegister = async () => {
         // e.preventDefault();

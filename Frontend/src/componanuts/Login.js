@@ -12,7 +12,7 @@ const Login = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) navigate('/todos');
-    }, []);
+    },[navigate]);
 
     const API_URL = process.env.REACT_APP_API_URL;
 
