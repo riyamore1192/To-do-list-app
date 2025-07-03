@@ -47,6 +47,6 @@ const Navbar = () => {
     </nav>
   );
 };
-{/* <Link to="/" style={{ marginRight: '10px' }}>Home</Link> */ }
+
 
 export default Navbar;
